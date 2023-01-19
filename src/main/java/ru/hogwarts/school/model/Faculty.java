@@ -18,6 +18,8 @@ public class Faculty {
         this.colour = colour;
     }
 
+    public Faculty() {}
+
     public Long getId() {return id;}
 
     public void setId(Long id) {this.id = id;}
