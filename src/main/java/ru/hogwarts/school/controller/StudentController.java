@@ -33,13 +33,14 @@ public class StudentController {
     }
 
     @GetMapping("age/between") // http://localhost:8080/student/age/between
-    public ResponseEntity findByAgeBetween(@RequestParam long ageMin,
-                                           @RequestParam long ageMax) {
+    public ResponseEntity findByAgeBetween(@RequestParam int ageMin,
+                                           @RequestParam int ageMax) {
         return ResponseEntity.ok(studentService.findByAgeBetween(ageMin, ageMax));
     }
 
     @GetMapping("faculty/{facultyId}") // http://localhost:8080/student/faculty/1
     public Collection<Student> findAllByFacultyId(@PathVariable long facultyId) {return studentService.findAllByFacultyId(facultyId);}
+
     @PostMapping() // POST http://localhost:8080/student/
     public Student createStudent(@RequestBody Student student){
         return studentService.createStudent(student);
