@@ -3,7 +3,6 @@ package ru.hogwarts.school.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
@@ -20,9 +19,9 @@ public class StudentController {
     }
 
     @GetMapping("{id}") // GET http://localhost:8080/student/2
-    public ResponseEntity<Student> getStudentInfo(@PathVariable long id){
+    public ResponseEntity<Student> getStudentInfo(@PathVariable long id) {
         Student student = studentService.findStudent(id);
-        if (student == null){
+        if (student == null) {
             ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(student);
@@ -34,25 +33,20 @@ public class StudentController {
     }
 
     @GetMapping("age/between") // http://localhost:8080/student/age/between
-    public ResponseEntity findByAgeBetween(@RequestParam int ageMin,
-                                           @RequestParam int ageMax) {
+    public ResponseEntity<Collection<Student>> findByAgeBetween(@RequestParam int ageMin,
+                                                                @RequestParam int ageMax) {
         return ResponseEntity.ok(studentService.findByAgeBetween(ageMin, ageMax));
     }
 
-    @GetMapping("faculty/{studentId}") // http://localhost:8080/student/faculty/7
-    public ResponseEntity<Faculty> findFaculty(@PathVariable long studentId) {
-        return ResponseEntity.ok(studentService.findById(studentId).getFaculty());
-    }
-
     @PostMapping() // POST http://localhost:8080/student/
-    public Student createStudent(@RequestBody Student student){
+    public Student createStudent(@RequestBody Student student) {
         return studentService.createStudent(student);
     }
 
     @PutMapping() // PUT http://localhost:8080/student/
     public ResponseEntity<Student> editeStudent(@RequestBody Student student) {
         Student foundStudent = studentService.editStudent(student);
-        if (foundStudent == null){
+        if (foundStudent == null) {
             ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(foundStudent);
@@ -64,4 +58,8 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("faculty/{id}")
+    public ResponseEntity findStudentsByFacultyId(@PathVariable Long id){
+        return ResponseEntity.ok(studentService.findStudentsByFacultyId(id));
+    };
 }

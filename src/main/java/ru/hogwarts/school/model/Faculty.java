@@ -14,6 +14,7 @@ public class Faculty {
     private long id;
     private String name;
     private String colour;
+
     @OneToMany(mappedBy = "faculty")
     private Collection<Student> students;
 
