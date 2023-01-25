@@ -34,7 +34,7 @@ public class FacultyService {
         return facultyRepository.findFacultyByNameIgnoreCaseOrColourIgnoreCase(name, colour);
     }
 
-    public Faculty findFacultyByStudentId(Long id){
-        return facultyRepository.findFacultyByStudentsId(id);
+    public Faculty findFacultyByStudentId(Long studentId){
+        return facultyRepository.findFacultyByStudentsId(studentId);
     };
 }

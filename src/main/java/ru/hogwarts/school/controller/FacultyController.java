@@ -19,7 +19,7 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
-    @GetMapping("{id}") // http://localhost:8080/faculty/2
+    @GetMapping("{id}") // GET http://localhost:8080/faculty/2
     public ResponseEntity<Faculty> getFacultyInfo(@PathVariable long id){
         Faculty faculty = facultyService.findFaculty(id);
         if (faculty == null) {
@@ -28,18 +28,18 @@ public class FacultyController {
         return ResponseEntity.ok(faculty);
     }
 
-    @GetMapping("colour") // http://localhost:8080/faculty/colour
+    @GetMapping("colour") // GET http://localhost:8080/faculty/colour
     public List<Faculty> findFacultyByColour(@RequestParam("colour") String colour){
         return facultyService.findFacultyByColour(colour);
     }
 
-    @GetMapping("find") // http://localhost:8080/faculty/find
+    @GetMapping("find") // GET http://localhost:8080/faculty/find
     public ResponseEntity findFaculty(@RequestParam(required = false) String name,
                                       @RequestParam(required = false) String colour){
         return ResponseEntity.ok(facultyService.findFacultyByNameOrColour(name, colour));
     }
 
-    @PostMapping() // http://localhost:8080/faculty/
+    @PostMapping() // POST http://localhost:8080/faculty/
     public Faculty createFaculty(@RequestBody Faculty faculty){
         return facultyService.createFaculty(faculty);
     }
@@ -59,8 +59,8 @@ public class FacultyController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("student/{id}")  // http://localhost:8080/faculty/student/7
-    public ResponseEntity findFacultyByStudentId(@PathVariable Long id){
-        return ResponseEntity.ok(facultyService.findFacultyByStudentId(id));
+    @GetMapping("student/{studentId}")  // GET http://localhost:8080/faculty/student/7
+    public ResponseEntity findFacultyByStudentId(@PathVariable Long studentId){
+        return ResponseEntity.ok(facultyService.findFacultyByStudentId(studentId));
     };
 }
