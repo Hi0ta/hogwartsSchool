@@ -15,24 +15,51 @@ public class Avatar {
     @OneToOne
     private Student student;
 
-    public Long getId() {return id;}
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id) {this.id = id;}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getFilePath() {return filePath;}
+    public String getFilePath() {
+        return filePath;
+    }
 
-    public void setFilePath(String filePath) {this.filePath = filePath;}
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
-    public String getMediaType() {return mediaType;}
-    public void setMediaType(String mediaType) {this.mediaType = mediaType;}
+    public String getMediaType() {
+        return mediaType;
+    }
 
-    public byte[] getPreview() {return preview;}
-    public void setPreview(byte[] preview) {this.preview = preview;}
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
+    }
 
-    public Student getStudent() {return student;}
+    public byte[] getPreview() {
+        return preview;
+    }
 
-    public void setStudent(Student student) {this.student = student;}
+    public void setPreview(byte[] preview) {
+        this.preview = preview;
+    }
 
-    public long getFileSize() {return fileSize;}
-    public void setFileSize(long fileSize) {this.fileSize = fileSize;}
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(long fileSize) {
+        this.fileSize = fileSize;
+    }
 }

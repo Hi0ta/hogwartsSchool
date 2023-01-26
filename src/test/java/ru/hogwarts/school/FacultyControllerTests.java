@@ -1,5 +1,6 @@
 package ru.hogwarts.school;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.hogwarts.school.controller.FacultyController;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.AvatarRepository;
@@ -33,6 +35,9 @@ public class FacultyControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     @MockBean
     private FacultyRepository facultyRepository;
@@ -109,12 +114,14 @@ public class FacultyControllerTests {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/faculty//find?name=" + name + "&colour=" + colour)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(Collections.singleton(faculty))));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/faculty/colour?colour=" + colour)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(Collections.singleton(faculty))));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/faculty/" + id)

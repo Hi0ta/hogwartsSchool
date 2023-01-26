@@ -1,5 +1,6 @@
 package ru.hogwarts.school;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.hogwarts.school.controller.StudentController;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.AvatarRepository;
@@ -33,6 +35,9 @@ public class StudentControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    ObjectMapper objectMapper;
+
     @MockBean
     private FacultyRepository facultyRepository;
     @MockBean
@@ -54,7 +59,7 @@ public class StudentControllerTests {
     private StudentController studentController;
 
     @Test
-    public void studentTest() throws Exception{
+    public void studentTest() throws Exception {
         final Long id = 1L;
         final String name = "student";
         final int age = 11;
@@ -79,14 +84,14 @@ public class StudentControllerTests {
 
 
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/student/")
-                .content(studentObject.toString())
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.id").value(id))
-            .andExpect(jsonPath("$.name").value(name))
-            .andExpect(jsonPath("$.age").value(age));
+                        .post("/student/")
+                        .content(studentObject.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.name").value(name))
+                .andExpect(jsonPath("$.age").value(age));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .put("/student/")
@@ -116,17 +121,20 @@ public class StudentControllerTests {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/student/age/" + age)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(Collections.singleton(student))));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/student/age/between?ageMin=" + ageMin + "&ageMax=" + ageMax)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(Collections.singleton(student))));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/student/faculty/" + id)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(Collections.singleton(student))));
     }
     //  Как написать тесты к методам про avatar???
 }

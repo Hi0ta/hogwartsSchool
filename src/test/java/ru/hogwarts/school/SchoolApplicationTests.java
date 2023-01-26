@@ -55,5 +55,4 @@ class SchoolApplicationTests {
     public void testFindStudentsByFacultyId() throws Exception {
         Assertions.assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/student/faculty/1", String.class)).isNotNull();
     }
-
 }
