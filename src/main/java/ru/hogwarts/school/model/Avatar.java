@@ -35,6 +35,4 @@ public class Avatar {
 
     public long getFileSize() {return fileSize;}
     public void setFileSize(long fileSize) {this.fileSize = fileSize;}
-
-
 }

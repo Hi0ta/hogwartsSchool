@@ -39,11 +39,11 @@ public class AvatarService {
         Files.createDirectories(filePath.getParent());
         Files.deleteIfExists(filePath);
 
-        try(InputStream is = file.getInputStream();
-            OutputStream os = Files.newOutputStream(filePath, CREATE_NEW);
-            BufferedInputStream bis = new BufferedInputStream(is, 1024);
-            BufferedOutputStream bos = new BufferedOutputStream(os, 1024);
-        ){
+        try (InputStream is = file.getInputStream();
+             OutputStream os = Files.newOutputStream(filePath, CREATE_NEW);
+             BufferedInputStream bis = new BufferedInputStream(is, 1024);
+             BufferedOutputStream bos = new BufferedOutputStream(os, 1024);
+        ) {
             bis.transferTo(bos);
         }  // этот блок нужен для того что бы открыть поток а потом ВАЖНО закрыть поток данных.
         Avatar avatar = findAvatar(studentId);
@@ -55,14 +55,19 @@ public class AvatarService {
 
         avatarRepository.save(avatar);
     }
-    public Avatar findAvatar(Long studentId){ return avatarRepository.findAvatarByStudentId(studentId).orElse(new Avatar());}
 
-    private String getExtension(String fileName){ return fileName.substring(fileName.lastIndexOf(".") + 1);}
+    public Avatar findAvatar(Long studentId) {
+        return avatarRepository.findAvatarByStudentId(studentId).orElse(new Avatar());
+    }
 
-    private byte[] generateImagePreview(Path filePath) throws IOException{
+    private String getExtension(String fileName) {
+        return fileName.substring(fileName.lastIndexOf(".") + 1);
+    }
+
+    private byte[] generateImagePreview(Path filePath) throws IOException {
         try (InputStream is = Files.newInputStream(filePath);
-        BufferedInputStream bis = new BufferedInputStream(is, 1024);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream()){
+             BufferedInputStream bis = new BufferedInputStream(is, 1024);
+             ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             BufferedImage image = ImageIO.read(bis);
 
             int height = image.getHeight() / (image.getWidth() / 100);

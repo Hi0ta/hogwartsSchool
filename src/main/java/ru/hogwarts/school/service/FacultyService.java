@@ -5,9 +5,6 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class FacultyService {
@@ -18,23 +15,31 @@ public class FacultyService {
         this.facultyRepository = facultyRepository;
     }
 
-    public Faculty createFaculty(Faculty faculty) {return facultyRepository.save(faculty);}
+    public Faculty createFaculty(Faculty faculty) {
+        return facultyRepository.save(faculty);
+    }  //   V
 
-    public Faculty findFaculty(long id) {return facultyRepository.findById(id).get();}
+    public Faculty findFaculty(long id) {
+        return facultyRepository.findById(id).get();
+    }  //   V
 
-    public List<Faculty> findFacultyByColour(String colour) {
-        return facultyRepository.findAll().stream().filter(e -> e.getColour().equals(colour)).collect(Collectors.toList());
+    public Collection<Faculty> findFacultyByColour(String colour) {
+        return facultyRepository.findFacultyByColourIgnoreCase(colour);
     }
 
-    public Faculty editFaculty(Faculty faculty) {return facultyRepository.save(faculty);}
+    public Faculty editFaculty(Faculty faculty) {
+        return facultyRepository.save(faculty);
+    }  //   V
 
-    public void deleteFaculty(long id) {facultyRepository.deleteById(id);}
+    public void deleteFaculty(long id) {
+        facultyRepository.deleteById(id);
+    }  //   V
 
     public Collection<Faculty> findFacultyByNameOrColour(String name, String colour) {
         return facultyRepository.findFacultyByNameIgnoreCaseOrColourIgnoreCase(name, colour);
-    }
+    }  //  V
 
-    public Faculty findFacultyByStudentId(Long studentId){
+    public Faculty findFacultyByStudentId(Long studentId) {
         return facultyRepository.findFacultyByStudentsId(studentId);
-    };
+    }
 }

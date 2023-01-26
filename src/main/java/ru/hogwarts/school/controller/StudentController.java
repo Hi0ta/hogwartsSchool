@@ -31,7 +31,7 @@ public class StudentController {
         this.avatarService = avatarService;
     }
 
-    @GetMapping("{id}") // GET http://localhost:8080/student/2
+    @GetMapping("{id}") // GET http://localhost:8080/student/7
     public ResponseEntity<Student> getStudentInfo(@PathVariable long id) {
         Student student = studentService.findStudent(id);
         if (student == null) {
@@ -41,8 +41,8 @@ public class StudentController {
     }
 
     @GetMapping("age/{age}") // GET http://localhost:8080/student/age/15
-    public List<Student> findStudentByAge(@PathVariable long age) {
-        return studentService.findStudentByAge(age);
+    public ResponseEntity<Collection<Student>> findStudentByAge(@PathVariable int age) {
+        return ResponseEntity.ok(studentService.findStudentsByAge(age));
     }
 
     @GetMapping("age/between") //  GET http://localhost:8080/student/age/between
@@ -72,11 +72,10 @@ public class StudentController {
     }
 
     @GetMapping("faculty/{facultyId}") // GET http://localhost:8080/student/faculty/1
-    public ResponseEntity findStudentsByFacultyId(@PathVariable Long facultyId) {
+    public ResponseEntity<Collection<Student>> findStudentsByFacultyId(@PathVariable Long facultyId) {
         return ResponseEntity.ok(studentService.findStudentsByFacultyId(facultyId));
     }
 
-    ;
 
     @PostMapping(value = "{id}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadAvatar(@PathVariable Long id, @RequestParam MultipartFile avatar) throws IOException {
