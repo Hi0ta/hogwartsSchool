@@ -102,7 +102,6 @@ public class StudentControllerTests {
                 .andExpect(jsonPath("$.id").value(id))
                 .andExpect(jsonPath("$.name").value(name))
                 .andExpect(jsonPath("$.age").value(age));
-        // Как в этом методе проверить если foundStudent == null и статус BAD_REQUEST???
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/student/" + id)
@@ -111,7 +110,6 @@ public class StudentControllerTests {
                 .andExpect(jsonPath("$.id").value(id))
                 .andExpect(jsonPath("$.name").value(name))
                 .andExpect(jsonPath("$.age").value(age));
-        //  Как в этом методе проверить если student == null и статус notFound()  ???
 
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/student/" + id)
@@ -136,5 +134,27 @@ public class StudentControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(Collections.singleton(student))));
     }
-    //  Как написать тесты к методам про avatar???
+
+    @Test
+    public void studentBadRequestTest() throws Exception {
+       when(studentRepository.save(any(Student.class))).thenReturn(null);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .put("/student/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void studentNotFoundTest() throws Exception{
+        final long id = 1L;
+        Student student = null;
+                when(studentRepository.findById(any(Long.class))).thenReturn(Optional.of(student));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/student/" + id)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
 }

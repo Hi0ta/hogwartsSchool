@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.hogwarts.school.controller.FacultyController;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.AvatarRepository;
 import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
@@ -100,7 +101,6 @@ public class FacultyControllerTests {
                 .andExpect(jsonPath("$.id").value(id))
                 .andExpect(jsonPath("$.name").value(name))
                 .andExpect(jsonPath("$.colour").value(colour));
-        // Как в этом методе проверить если foundFaculty == null и статус BAD_REQUEST???
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/faculty/" + id)
@@ -109,7 +109,6 @@ public class FacultyControllerTests {
                 .andExpect(jsonPath("$.id").value(id))
                 .andExpect(jsonPath("$.name").value(name))
                 .andExpect(jsonPath("$.colour").value(colour));
-//  Как в этом методе проверить если faculty == null и статус notFound()  ???
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/faculty//find?name=" + name + "&colour=" + colour)
@@ -132,5 +131,29 @@ public class FacultyControllerTests {
                         .get("/faculty/student/" + id)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void facultyBadRequestTest() throws Exception {
+        when(facultyRepository.save(any(Faculty.class))).thenReturn(null);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .put("/faculty/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void facultyNotFoundTest() throws Exception{
+        final Long id = 1L;
+        Faculty faculty = null;
+
+        when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/faculty/" + id)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }
