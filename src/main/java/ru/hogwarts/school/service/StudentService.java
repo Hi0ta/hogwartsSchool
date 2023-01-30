@@ -42,4 +42,16 @@ public class StudentService {
     public Collection<Student> findStudentsByFacultyId(Long facultyId) {
         return studentRepository.findStudentsByFacultyId(facultyId);
     }
+
+    public Integer getNumberAllStudents() {
+        return studentRepository.getNumberAllStudents();
+    }
+
+    public Integer getMiddleAgeStudents() {
+        return studentRepository.getMiddleAgeStudents();
+    }
+
+    public Collection<Student> getLastFiveStudents() {
+        return studentRepository.getLastFiveStudents();
+    }
 }

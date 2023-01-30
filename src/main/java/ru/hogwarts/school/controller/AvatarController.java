@@ -1,6 +1,5 @@
 package ru.hogwarts.school.controller;
 
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,18 +15,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("avatar/")
 public class AvatarController {
-
     private final AvatarService avatarService;
-
 
     public AvatarController(AvatarService avatarService) {
         this.avatarService = avatarService;
     }
-
 
     @PostMapping(value = "{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadAvatar(@PathVariable Long id, @RequestParam MultipartFile avatar) throws IOException {
@@ -62,5 +59,12 @@ public class AvatarController {
             response.setContentLength((int) avatar.getFileSize());
             is.transferTo(os);
         }
+    }
+
+    @GetMapping(value = "all-avatars")
+    public ResponseEntity<Collection<Avatar>> getAllAvatars(@RequestParam("page") Integer pageNumber,
+                                                            @RequestParam("size") Integer pageSize) {
+        Collection<Avatar> avatars = avatarService.getAllAvatars(pageNumber, pageSize);
+        return ResponseEntity.ok(avatars);
     }
 }

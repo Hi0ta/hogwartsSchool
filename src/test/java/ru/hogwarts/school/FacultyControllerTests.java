@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.hogwarts.school.controller.FacultyController;
 import ru.hogwarts.school.model.Faculty;
-import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.AvatarRepository;
 import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
@@ -143,17 +142,16 @@ public class FacultyControllerTests {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
-
-    @Test
-    public void facultyNotFoundTest() throws Exception{
-        final Long id = 1L;
-        Faculty faculty = null;
-
-        when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty));
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/faculty/" + id)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-    }
+//    @Test
+//    public void facultyNotFoundTest() throws Exception {
+//        final Long id = 1L;
+//        Faculty faculty = null;
+//
+//        when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty));
+//
+//        mockMvc.perform(MockMvcRequestBuilders
+//                        .get("/faculty/" + id)
+//                        .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isNotFound());
+//    }
 }

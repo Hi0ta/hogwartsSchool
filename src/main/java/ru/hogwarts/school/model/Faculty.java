@@ -56,12 +56,12 @@ public class Faculty {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Faculty faculty = (Faculty) o;
-        return Objects.equals(id, faculty.id) && name.equals(faculty.name) && colour.equals(faculty.colour);
+        return id == faculty.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, colour);
+        return Objects.hash(id);
     }
 
     @Override
