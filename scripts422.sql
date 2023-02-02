@@ -1,23 +1,12 @@
-CREATE TABLE table_man (
-    ...
+CREATE TABLE man (
     id serial,
-    name text,
+    name text PRIMARY KEY,
     age integer,
     license boolean,
-    ...
 );
-CREATE TABLE table_car (
-    ...
-    id serial,
+CREATE TABLE car (
+    id serial PRIMARY KEY,
     brand text,
     model text,
     cost integer,
-    ...
-);
-CREATE TABLE table_man (
-    ...
-    id serial,
-    name TEXT PRIMARY KEY,
-    car_id serial REFERENCES table_car (id)
-    ...
 );
