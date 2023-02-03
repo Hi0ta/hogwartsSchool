@@ -1,12 +1,13 @@
-CREATE TABLE man (
-    id serial,
-    name text PRIMARY KEY,
-    age integer,
-    license boolean,
-);
 CREATE TABLE car (
     id serial PRIMARY KEY,
     brand text,
     model text,
-    cost integer,
+    cost integer
+);
+CREATE TABLE man (
+    id serial PRIMARY KEY,
+    name text,
+    age integer,
+    license boolean,
+    cars_id serial REFERENCES car (id)
 );
