@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import ru.hogwarts.school.model.Student;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
     Collection<Student> findStudentsByAgeBetween(int ageMin, int ageMax);
@@ -12,6 +13,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     Collection<Student> findStudentsByFacultyId(Long id);
 
     Collection<Student> findStudentsByAge(int age);
+
+    List<Student> getStudentsByName(String name);
 
     @Query(value = "SELECT COUNT(*) FROM student", nativeQuery = true)
     Integer getNumberAllStudents();

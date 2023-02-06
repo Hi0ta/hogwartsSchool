@@ -7,6 +7,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("student/")
@@ -60,6 +61,12 @@ public class StudentController {
     @GetMapping("faculty/{facultyId}") // GET http://localhost:8080/student/faculty/1
     public ResponseEntity<Collection<Student>> findStudentsByFacultyId(@PathVariable Long facultyId) {
         return ResponseEntity.ok(studentService.findStudentsByFacultyId(facultyId));
+    }
+
+    @GetMapping("name/{name}") // GET http://localhost:8080/student/name/Harry
+    public ResponseEntity<List<Student>> getStudentsByName(@PathVariable("name") String name){
+        List<Student> students = studentService.getStudentsByName(name);
+        return ResponseEntity.ok(students);
     }
 
     @GetMapping("number-all-students")
