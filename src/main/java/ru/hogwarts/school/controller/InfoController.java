@@ -4,21 +4,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.hogwarts.school.service.InfoService;
+import ru.hogwarts.school.service.InfoServiceImpl;
 
 @RestController
 @RequestMapping("info/")
 public class InfoController {
 
-    private final InfoService infoService;
+    private final InfoServiceImpl infoServiceImpl;
 
-    public InfoController(InfoService infoService) {
-        this.infoService = infoService;
+    public InfoController(InfoServiceImpl infoServiceImpl) {
+        this.infoServiceImpl = infoServiceImpl;
     }
 
     @GetMapping("get-port")
     public ResponseEntity<Integer> getPort(){
-        return ResponseEntity.ok(infoService.getPort());
+        return ResponseEntity.ok(infoServiceImpl.getPort());
     }
 
 }
