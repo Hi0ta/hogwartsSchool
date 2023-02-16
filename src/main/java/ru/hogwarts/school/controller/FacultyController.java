@@ -65,7 +65,7 @@ public class FacultyController {
 
     @GetMapping("longest-name")
     public ResponseEntity<String> getLongestNameFaculty() {
-    return ResponseEntity.ok(facultyService.getLongestNameFaculty());
+        return ResponseEntity.ok(facultyService.getLongestNameFaculty());
     }
 }
 

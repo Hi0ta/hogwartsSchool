@@ -62,7 +62,7 @@ public class StudentService {
     }
 
     public Integer getMiddleAgeStudents() {
-       // logger.debug("launching the getMiddleAgeStudents method");
+        logger.debug("launching the getMiddleAgeStudents method");
         return studentRepository.getMiddleAgeStudents();
     }
 
@@ -71,20 +71,20 @@ public class StudentService {
         return studentRepository.getLastFiveStudents();
     }
 
-    public List<Student> getStudentsByName(String name){
+    public List<Student> getStudentsByName(String name) {
         logger.debug("launching the getStudentsByName method   with name: {}", name);
         return studentRepository.getStudentsByName(name);
     }
 
-    public List<String> getNameBeginsWithA(){
+    public List<String> getNameBeginsWithA() {
         return studentRepository.findAll().stream()
                 .map(Student::getName)
-                .filter(e-> e.startsWith("A"))
+                .filter(e -> e.startsWith("A"))
                 .sorted().map(String::toUpperCase)
                 .collect(Collectors.toList());
     }
 
-    public Double getMiddleAgeAllStudents(){
+    public Double getMiddleAgeAllStudents() {
         return studentRepository.findAll()
                 .parallelStream()
                 .collect(Collectors.averagingInt(Student::getAge));

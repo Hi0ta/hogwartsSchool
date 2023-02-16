@@ -64,7 +64,7 @@ public class StudentController {
     }
 
     @GetMapping("name/{name}") // GET http://localhost:8080/student/name/Harry
-    public ResponseEntity<List<Student>> getStudentsByName(@PathVariable("name") String name){
+    public ResponseEntity<List<Student>> getStudentsByName(@PathVariable("name") String name) {
         List<Student> students = studentService.getStudentsByName(name);
         return ResponseEntity.ok(students);
     }
@@ -85,7 +85,7 @@ public class StudentController {
     }
 
     @GetMapping("name-begin-with-a")
-    public ResponseEntity<List<String>> getNameBeginsWithA(){
+    public ResponseEntity<List<String>> getNameBeginsWithA() {
         return ResponseEntity.ok(studentService.getNameBeginsWithA());
     }
 

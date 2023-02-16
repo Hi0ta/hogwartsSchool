@@ -17,7 +17,7 @@ public class InfoController {
     }
 
     @GetMapping("get-port")
-    public ResponseEntity<Integer> getPort(){
+    public ResponseEntity<Integer> getPort() {
         return ResponseEntity.ok(infoServiceImpl.getPort());
     }
 
@@ -25,5 +25,4 @@ public class InfoController {
     public ResponseEntity<Integer> getFastInteger() {
         return ResponseEntity.ok(infoServiceImpl.getFastInteger());
     }
-
 }

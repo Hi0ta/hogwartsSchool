@@ -2,16 +2,12 @@ package ru.hogwarts.school.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.FacultyRepository;
 
-import javax.naming.Name;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class FacultyService {
@@ -58,7 +54,7 @@ public class FacultyService {
         return facultyRepository.findFacultyByStudentsId(studentId);
     }
 
-    public String getLongestNameFaculty(){
+    public String getLongestNameFaculty() {
         return facultyRepository.findAll().stream()
                 .map(Faculty::getName)
                 .max(Comparator.comparingInt(String::length))
