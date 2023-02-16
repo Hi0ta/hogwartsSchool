@@ -40,7 +40,7 @@ public class FacultyController {
 
     @PostMapping() // POST http://localhost:8080/faculty/
     public Faculty createFaculty(@RequestBody Faculty faculty) {
-             return facultyService.createFaculty(faculty);
+        return facultyService.createFaculty(faculty);
     }
 
     @PutMapping() // PUT http://localhost:8080/faculty/
@@ -60,6 +60,12 @@ public class FacultyController {
 
     @GetMapping("student/{studentId}")  // GET http://localhost:8080/faculty/student/7
     public ResponseEntity<Faculty> findFacultyByStudentId(@PathVariable Long studentId) {
-              return ResponseEntity.ok(facultyService.findFacultyByStudentId(studentId));
+        return ResponseEntity.ok(facultyService.findFacultyByStudentId(studentId));
+    }
+
+    @GetMapping("longest-name")
+    public ResponseEntity<String> getLongestNameFaculty() {
+    return ResponseEntity.ok(facultyService.getLongestNameFaculty());
     }
 }
+

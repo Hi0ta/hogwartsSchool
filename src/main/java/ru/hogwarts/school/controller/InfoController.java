@@ -21,4 +21,9 @@ public class InfoController {
         return ResponseEntity.ok(infoServiceImpl.getPort());
     }
 
+    @GetMapping("fast-int")
+    public ResponseEntity<Integer> getFastInteger() {
+        return ResponseEntity.ok(infoServiceImpl.getFastInteger());
+    }
+
 }
