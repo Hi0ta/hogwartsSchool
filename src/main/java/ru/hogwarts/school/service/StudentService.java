@@ -89,4 +89,42 @@ public class StudentService {
                 .parallelStream()
                 .collect(Collectors.averagingInt(Student::getAge));
     }
+
+    public String getListName(int num){
+        List<String> names = studentRepository.findAll()
+                .stream().map(Student::getName).toList();
+        return names.get(num);
+    }
+
+    public void printSixName(){
+    //  List<String> names = studentRepository.findAll().stream().map(Student::getName).toList();
+        new Thread(() -> {
+            System.out.println("№ 3 " + getListName(2));
+            System.out.println("№ 4 " + getListName(3));
+        }).start();
+        new Thread(() -> {
+            System.out.println("№ 5 " + getListName(4));
+            System.out.println("№ 6 " + getListName(5));
+        }).start();
+        System.out.println("№ 1 " + getListName(0));
+        System.out.println("№ 2 " + getListName(1));
+    }
+
+    public void printSixNameSync(){
+            new Thread(() -> {
+                System.out.println("№ 3 " + getListName(2) + " count:" + getCount());
+                System.out.println("№ 4 " + getListName(3) + " count:" + getCount());
+            }).start();
+            new Thread(() -> {
+                System.out.println("№ 5 " + getListName(4) + " count:" + getCount());
+                System.out.println("№ 6 " + getListName(5) + " count:" + getCount());
+            }).start();
+            System.out.println("№ 1 " + getListName(0) + " count:" + getCount());
+            System.out.println("№ 2 " + getListName(1) + " count:" + getCount());
+    }
+
+    public int count = 1;
+    public int getCount(){
+        return count++;
+    }
 }

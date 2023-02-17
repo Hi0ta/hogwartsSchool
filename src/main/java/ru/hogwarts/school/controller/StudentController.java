@@ -93,4 +93,14 @@ public class StudentController {
     public ResponseEntity<Double> getMiddleAgeAllStudents() {
         return ResponseEntity.ok(studentService.getMiddleAgeAllStudents());
     }
+
+    @GetMapping("print6name")
+    public void printSixName(){
+        studentService.printSixName();
+    }
+
+    @GetMapping("print6name-synchronously")
+    public void printSixNameSync(){
+        studentService.printSixNameSync();
+    }
 }
