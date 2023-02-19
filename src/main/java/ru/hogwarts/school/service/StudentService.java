@@ -90,41 +90,45 @@ public class StudentService {
                 .collect(Collectors.averagingInt(Student::getAge));
     }
 
+    public void printSixName(){
+        //  List<String> names = studentRepository.findAll().stream().map(Student::getName).toList();
+        new Thread(() -> {
+            System.out.println(Thread.currentThread().getName() + " № 3 " + getListName(2));
+            System.out.println(Thread.currentThread().getName() + " № 4 " + getListName(3));
+        }).start();
+        new Thread(() -> {
+            System.out.println(Thread.currentThread().getName() + " № 5 " + getListName(4));
+            System.out.println(Thread.currentThread().getName() + " № 6 " + getListName(5));
+        }).start();
+        System.out.println(Thread.currentThread().getName() + " № 1 " + getListName(0));
+        System.out.println(Thread.currentThread().getName() + " № 2 " + getListName(1));
+    }
+
     public String getListName(int num){
         List<String> names = studentRepository.findAll()
                 .stream().map(Student::getName).toList();
         return names.get(num);
     }
 
-    public void printSixName(){
-    //  List<String> names = studentRepository.findAll().stream().map(Student::getName).toList();
-        new Thread(() -> {
-            System.out.println("№ 3 " + getListName(2));
-            System.out.println("№ 4 " + getListName(3));
-        }).start();
-        new Thread(() -> {
-            System.out.println("№ 5 " + getListName(4));
-            System.out.println("№ 6 " + getListName(5));
-        }).start();
-        System.out.println("№ 1 " + getListName(0));
-        System.out.println("№ 2 " + getListName(1));
+    public synchronized void printStudentName(int num){
+        System.out.println(getListName(num));
     }
 
     public void printSixNameSync(){
             new Thread(() -> {
-                System.out.println("№ 3 " + getListName(2) + " count:" + getCount());
-                System.out.println("№ 4 " + getListName(3) + " count:" + getCount());
+                printStudentName(2);
+                printStudentName(3);
             }).start();
             new Thread(() -> {
-                System.out.println("№ 5 " + getListName(4) + " count:" + getCount());
-                System.out.println("№ 6 " + getListName(5) + " count:" + getCount());
+                printStudentName(4);
+                printStudentName(5);
             }).start();
-            System.out.println("№ 1 " + getListName(0) + " count:" + getCount());
-            System.out.println("№ 2 " + getListName(1) + " count:" + getCount());
+        printStudentName(0);
+        printStudentName(1);
     }
 
-    public int count = 1;
-    public int getCount(){
-        return count++;
-    }
+//    public int count = 1;
+//    public synchronized int getCount(){
+//        return count++;
+//    }
 }
